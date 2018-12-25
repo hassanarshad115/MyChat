@@ -1,0 +1,43 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.mychat.mychat"
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //ye librarues add krni h
+
+
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.quickblox:quickblox-android-sdk-core:3.3.0'
+    implementation 'com.quickblox:quickblox-android-sdk-chat:3.3.0'
+
+    //  implementation 'com.quickblox:quickblox-android-sdk-chat:2.6.1'
+
+/*    implementation "com.quickblox:quickblox-android-sdk-chat:$rootProject.qbSdkVersion" //include only necessary module dependency, all transitive modules will be included automatically
+    implementation "com.quickblox:quickblox-android-sdk-content:$rootProject.qbSdkVersion"
+    implementation "com.quickblox:quickblox-android-sdk-messages:$rootProject.qbSdkVersion"
+    implementation "com.quickblox:quickblox-android-sdk-customobjects:$rootProject.qbSdkVersion"*/
+
+}
