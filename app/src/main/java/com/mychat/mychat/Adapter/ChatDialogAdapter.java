@@ -62,7 +62,7 @@ public class ChatDialogAdapter extends BaseAdapter {
 
 
             //Random color lyny k lye
-            ColorGenerator colorGenerator = ColorGenerator.MATERIAL; 
+            ColorGenerator colorGenerator = ColorGenerator.MATERIAL;
             int randomColor = colorGenerator.getRandomColor();
 
             TextDrawable.IBuilder iBuilder = TextDrawable.builder().beginConfig()
