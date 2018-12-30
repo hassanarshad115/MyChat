@@ -3,13 +3,20 @@ package com.mychat.mychat;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
+import com.quickblox.auth.QBAuth;
+import com.quickblox.auth.session.BaseService;
+import com.quickblox.auth.session.QBSession;
 import com.quickblox.auth.session.QBSettings;
+import com.quickblox.chat.QBChatService;
 import com.quickblox.core.QBEntityCallback;
+import com.quickblox.core.exception.BaseServiceException;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
@@ -44,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+               startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+
             }
         });
 
@@ -55,31 +63,29 @@ public class MainActivity extends AppCompatActivity {
 
                 //take the values of edit text boxes
                 final String user = edtUser.getText().toString();
-                String password = edtPassword.getText().toString();
+                final String password = edtPassword.getText().toString();
 
                 QBUser qbUser = new QBUser(user, password);
                 QBUsers.signIn(qbUser).performAsync(new QBEntityCallback<QBUser>() {
                     @Override
                     public void onSuccess(QBUser qbUser, Bundle bundle) {
 
-                        if (edtUser.getText().toString() == "") {
-                            edtUser.setError("Enter Username");
-                            edtUser.requestFocus();
-                        } else if (edtPassword.getText().toString() == "") {
-                            edtPassword.setError("Enter Password");
-                            edtPassword.requestFocus();
-                        } else {
+
                             Toast.makeText(MainActivity.this, "Login Successfully", Toast.LENGTH_SHORT).show();
-                        }
+                            Intent intent = new Intent(MainActivity.this, ChatDialogActivity.class);
+                            intent.putExtra("user", user);
+                            intent.putExtra("password", password);
+                            startActivity(intent);
+
 
                     }
 
                     @Override
                     public void onError(QBResponseException e) {
                         Toast.makeText(MainActivity.this, "Enter Correct User/Password", Toast.LENGTH_SHORT).show();
-                            edtUser.setText("");
-                            edtPassword.setText("");
-                            edtUser.requestFocus();
+                        edtUser.setText("");
+                        edtPassword.setText("");
+                        edtUser.requestFocus();
                     }
                 });
 
